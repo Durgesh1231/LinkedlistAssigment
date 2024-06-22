@@ -1,0 +1,432 @@
+Ans 1.
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedList {
+    Node head;
+
+    // Method to check if key is present in linked list
+    public boolean isPresent(int key) {
+        Node current = head;
+        while (current != null) {
+            if (current.data == key) {
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+
+    // Utility method to add a new node at the end of the list
+    public void add(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node last = head;
+            while (last.next != null) {
+                last = last.next;
+            }
+            last.next = newNode;
+        }
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+        
+       
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+
+        // Checking if key 3 is present in the linked list
+        System.out.println(list.isPresent(3)); // Output: true
+
+        // Checking if key 5 is present in the linked list
+        System.out.println(list.isPresent(5)); // Output: false
+    }
+}
+
+
+
+
+Ans 2.
+	
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedList {
+    Node head;
+
+    // Method to insert a new node after a given node
+    public void insertAfter(Node prevNode, int newData) {
+        if (prevNode == null) {
+            System.out.println("The given previous node cannot be null");
+            return;
+        }
+
+        Node newNode = new Node(newData);
+        newNode.next = prevNode.next;
+        prevNode.next = newNode;
+    }
+
+    // Utility method to add a new node at the end of the list
+    public void add(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node last = head;
+            while (last.next != null) {
+                last = last.next;
+            }
+            last.next = newNode;
+        }
+    }
+
+    // Method to print the linked list
+    public void printList() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+
+        System.out.println("Original Linked List:");
+        list.printList(); // Output: 1 2 3 4
+
+        // Inserting a node with value 5 after the second node (node with value 2)
+        Node secondNode = list.head.next; // secondNode points to node with value 2
+        list.insertAfter(secondNode, 5);
+
+        System.out.println("Linked List after insertion:");
+        list.printList(); // Output: 1 2 5 3 4
+    }
+}
+
+
+
+
+Ans 3.
+
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedList {
+    Node head;
+
+    // Method to remove duplicates from a sorted linked list
+    public void removeDuplicates() {
+        Node current = head;
+        while (current != null && current.next != null) {
+            if (current.data == current.next.data) {
+                current.next = current.next.next;
+            } else {
+                current = current.next;
+            }
+        }
+    }
+
+    // Utility method to add a new node at the end of the list
+    public void add(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node last = head;
+            while (last.next != null) {
+                last = last.next;
+            }
+            last.next = newNode;
+        }
+    }
+
+    // Method to print the linked list
+    public void printList() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        // Adding nodes to the linked list: 1 ,2,2,3,4,4
+        list.add(1);
+        list.add(2);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(4);
+
+        System.out.println("Original Linked List:");
+        list.printList(); // Output: 1 2 2 3 4 4
+
+        // Removing duplicates from the linked list
+        list.removeDuplicates();
+
+        System.out.println("Linked List after removing duplicates:");
+        list.printList(); // Output: 1 2 3 4
+    }
+}
+
+
+
+Ans 4.
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedList {
+    Node head;
+
+    // Method to check if the linked list is a palindrome
+    public boolean isPalindrome() {
+        if (head == null || head.next == null) {
+            return true;
+        }
+
+        // Step 1: Find the middle of the linked list
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Step 2: Reverse the second half of the linked list
+        Node secondHalf = reverse(slow);
+        Node secondHalfCopy = secondHalf; // To restore the list later
+
+        // Step 3: Compare the first half with the reversed second half
+        Node firstHalf = head;
+        boolean result = true;
+        while (result && secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) {
+                result = false;
+            }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        // Step 4: Restore the list (optional)
+        reverse(secondHalfCopy);
+
+        return result;
+    }
+
+    // Method to reverse a linked list
+    private Node reverse(Node head) {
+        Node prev = null;
+        Node current = head;
+        Node next;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
+
+    // Utility method to add a new node at the end of the list
+    public void add(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node last = head;
+            while (last.next != null) {
+                last = last.next;
+            }
+            last.next = newNode;
+        }
+    }
+
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        // Adding nodes to the linked list: 1 -> 2 -> 2 -> 1
+        list.add(1);
+        list.add(2);
+        list.add(2);
+        list.add(1);
+
+        // Checking if the linked list is a palindrome
+        System.out.println(list.isPalindrome()); // Output: true
+
+        LinkedList list2 = new LinkedList();
+
+        // Adding nodes to the linked list: 1 -> 2 -> 3 -> 4
+        list2.add(1);
+        list2.add(2);
+        list2.add(3);
+        list2.add(4);
+
+        // Checking if the linked list is a palindrome
+        System
+
+
+
+Ans 5.
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class LinkedList {
+    Node head;
+
+    // Method to reverse a linked list
+    private Node reverse(Node head) {
+        Node prev = null;
+        Node current = head;
+        Node next;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
+
+    // Method to add two numbers represented by linked lists
+    public LinkedList addTwoLists(Node first, Node second) {
+        first = reverse(first);
+        second = reverse(second);
+        
+        Node resultHead = null;
+        Node resultTail = null;
+        int carry = 0;
+
+        while (first != null || second != null || carry != 0) {
+            int sum = carry;
+            if (first != null) {
+                sum += first.data;
+                first = first.next;
+            }
+            if (second != null) {
+                sum += second.data;
+                second = second.next;
+            }
+
+            carry = sum / 10;
+            int digit = sum % 10;
+
+            Node newNode = new Node(digit);
+            if (resultHead == null) {
+                resultHead = newNode;
+                resultTail = newNode;
+            } else {
+                resultTail.next = newNode;
+                resultTail = newNode;
+            }
+        }
+
+        resultHead = reverse(resultHead);
+        LinkedList result = new LinkedList();
+        result.head = resultHead;
+        return result;
+    }
+
+    // Utility method to add a new node at the end of the list
+    public void add(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node last = head;
+            while (last.next != null) {
+                last = last.next;
+            }
+            last.next = newNode;
+        }
+    }
+
+    // Method to print the linked list
+    public void printList() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        LinkedList list1 = new LinkedList();
+        list1.add(7);
+        list1.add(5);
+        list1.add(9);
+        list1.add(4);
+        list1.add(6);
+        
+        LinkedList list2 = new LinkedList();
+        list2.add(8);
+        list2.add(4);
+
+        System.out.println("First List:");
+        list1.printList(); // Output: 7 5 9 4 6
+
+        System.out.println("Second List:");
+        list2.printList(); // Output: 8 4
+
+        LinkedList result = list1.addTwoLists(list1.head, list2.head);
+        
+        System.out.println("Resultant List:");
+        result.printList(); // Output: 7 6 0 3 0
+    }
+}
+
